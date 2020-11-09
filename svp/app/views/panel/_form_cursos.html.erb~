@@ -1,0 +1,96 @@
+<%= form_for(@obj, :remote => true, :url => {:controller => "panel", :action => (action_name == "editar" ? "editar" : "crear"), :params => {:set => params[:set], :id => (@obj.id if action_name == "editar")}}, :html => { :multipart => true }) do |f| %>
+  <% if @obj.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@obj.errors.count, "error") %> impidieron generar este objeto:</h2>
+
+      <ul>
+      <% @obj.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+  <div class="field">
+    <%= f.label :titulo, "Título" %><br>
+    <%= f.trix_editor :titulo, required: (@presence.include?(:titulo) || "false")  %>
+  </div>
+	<div class="field">
+		<%= f.label :tipo, "Tipo de curso" %><br>
+		<%= f.select(:tipo, [["Verano","Verano"],["Público","Público"],["MOOC","MOOC"]], selected: (@obj.tipo || "Verano"), (@presence.include?(:fecha_i) || "false") ) %>
+	</div>
+  <div class="field">
+    <%= f.label :fecha_ic, "Fecha inicial de convocatoria" %><br>
+    <%= f.text_field :fecha_ic, autocomplete: "off", class: "fechas", required: (@presence.include?(:fecha_ic) || "false") %>
+  </div>
+  <div class="field">
+    <%= f.label :fecha_fc, "Fecha final de convocatoria" %><br>
+    <%= f.text_field :fecha_fc, autocomplete: "off", class: "fechas", required: (@presence.include?(:fecha_fc) || "false") %>
+  </div>
+  <div class="field">
+    <%= f.label :fecha_i, "Fecha inicial de curso" %><br>
+    <%= f.text_field :fecha_i, autocomplete: "off", class: "fechas", required: (@presence.include?(:fecha_i) || "false") %>
+  </div>
+  <div class="field">
+    <%= f.label :fecha_f, "Fecha final de curso" %><br>
+    <%= f.text_field :fecha_f, autocomplete: "off", class: "fechas", required: (@presence.include?(:fecha_f) || "false") %>
+  </div>
+  <div class="field">
+    <%= f.label :imparte, "Impartido por (opcional)" %><br>
+    <%= f.text_field :imparte %>
+  </div>
+  <div class="field">
+    <%= f.label :liga, "Liga externa (opcional)" %><br>
+    <%= f.text_field :liga %>
+  </div>
+  <div class="field">
+    <%= f.label :liga_imparte, "Liga a sitio de quien imparte (opcional)" %><br>
+    <%= f.text_field :liga_imparte %>
+  </div>
+  <div class="field">
+    <%= f.label :descripcion, "Descripción (opcional)" %><br>
+    <%= f.trix_editor :descripcion %>
+  </div>
+  <div class="field">
+    <%= f.label :descripcion_en, "Descripción (inglés, opcional)" %><br>
+    <%= f.trix_editor :descripcion_en %>
+  </div>
+  <div class="field field-media">
+		<div class="photo-upload">
+    <%= f.label :imagen, raw('<span class="glyphicon glyphicon-upload glyph-padding"></span>Añadir imagen') %><br>
+    <%= f.file_field :imagen, :onchange => "readURL(this,'#foto-curso','#curso_imagen_del')" %><br>
+    <%= f.check_box :imagen_del, {checked: false, onclick: "deleteImage(this,'foto-curso');"}, "1", "0" %>
+			<%= f.label :imagen_del, "Eliminar imagen" %><br>
+		</div>
+		<div class="img-display" id="foto-curso">
+			<% if !@obj.imagen.url.nil? %>
+				<img src="<%= @obj.imagen.url %>">
+			<% else %>
+				<span>No hay imagen para mostrar.</span>
+			<% end %>
+		</div>
+  </div>
+  <div class="field field-media">
+		<div class="photo-upload">
+    <%= f.label :documento, raw('<span class="glyphicon glyphicon-upload glyph-padding"></span>Añadir convocatoria') %><br>
+    <%= f.file_field :documento, :onchange => "readURL(this,'#documento-curso','#curso_documento_del')" %><br>
+    <%= f.check_box :documento_del, {checked: false, onclick: "deleteImage(this,'foto-curso');"}, "1", "0" %>
+			<%= f.label :documento_del, "Eliminar convocatoria" %><br>
+		</div>
+		<div class="img-display" id="documento-curso">
+			<% if !@obj.documento.url.nil? %>
+				<% if !/\.((jpe?g)|(png))/.match(@obj.documento.url.downcase).nil? %>
+					<img src="<%= @obj.documento.url %>">
+				<% elsif !/\.pdf/.match(@obj.documento.url.downcase).nil? %>
+					<object type="application/pdf" data ="<%= @obj.documento.url %>"><embed src="<%= @obj.documento.url %>" type="application/pdf"></object>
+				<% end %>
+			<% else %>
+				<span>No hay convocatoria para mostrar.</span>
+			<% end %>
+		</div>
+  </div>
+  <div class="actions">
+    <%= f.submit "Generar curso" %>
+  </div>
+<% end %>

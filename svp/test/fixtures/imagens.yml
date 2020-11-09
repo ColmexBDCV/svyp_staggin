@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  imagen: 
+  sesion: MyText
+  indice: 1
+  caption: MyText
+
+two:
+  imagen: 
+  sesion: MyText
+  indice: 1
+  caption: MyText

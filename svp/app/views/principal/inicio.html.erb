@@ -1,0 +1,42 @@
+<%= render 'principal/header' %>
+<div uk-slider="autoplay: true; autoplay-interval: 3500; pause-on-hover:false" id="slider">
+	<div class="uk-slider-container uk-position-relative">
+		<ul class="uk-slider-items uk-child-width-1-1">
+			<% @sliders.each do |s| %>
+			<li>
+				<div class="uk-position-relative" style="background:url('<%= s.banner.url %>')  no-repeat center center/ 100% 100%">
+					<% if s.liga.present? %>
+						<a class="liga-slider uk-position-center" href="<%= s.liga %>" target="<%= s.liga.include?(request.base_url) || s.liga[0] == '/' ? '' : '_blank' %>"></a>
+					<% else %>
+						<a class="liga-slider uk-position-center" onclick="preventDefault();" style="cursor: auto;"></a>
+					<% end %>
+				</div>
+			</li>
+			<% end %>
+		</ul>
+		<ul class="uk-position-bottom uk-slider-nav uk-dotnav uk-flex-center uk-margin"></ul>
+	</div>
+</div>
+<div id="acerca">
+	<p class="texto-rosa titulo uk-text-center">Acerca de</p>
+
+	<p>El <span class="negritas">Seminario sobre Violencia y Paz de El Colegio de México</span> – coordinado por Sergio Aguayo – fue creado
+en 2014 para generar conocimiento aplicado sobre la naturaleza de un fenómeno con raíces domésticas e internacionales. El supuesto central ha sido que estamos ante un asunto que trasciende ideologías o lealtades partidistas y que para su solución requiere de un diálogo y una convergencia entre Estado, sociedad y comunidad internacional.</p>
+	<div class="uk-text-center">
+			<a href="<%= acerca_path %>" class="boton-leer">Leer más</a>
+	</div>
+</div>
+<div id="publicaciones">
+	<span class="titulo-seccion">Publicaciones</span>
+	<div class="portadas-pubs uk-child-width-1-3@m uk-child-width-1-1 uk-flex-middle" uk-grid>
+		<% @pubs.each do |p| %>
+		<div class="publicacion uk-text-center">
+			<a href="<%= p.documento.url(:original) %>">
+				<img data-src="<%= p.portada.present? ? p.portada.url(:thumb_cut) : p.documento.url(:thumb_cut) %>" data-width data-height uk-img>
+			</a>
+			<a href="<%= p.documento.url(:original) %>" class="boton-seminario">Más información</a>
+		</div>
+		<% end %>
+	</div>
+</div>
+<%= render 'principal/footer' %>

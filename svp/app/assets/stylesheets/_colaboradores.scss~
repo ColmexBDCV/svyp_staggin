@@ -1,0 +1,14 @@
+.nombre { font-family: "Montserrat"; font-weight: 700; font-size: 50px; color: #F16F70; text-transform: uppercase; }
+.foto-persona { clip-path: polygon(10% 0, 100% 0, 100% 100%, 40% 100%);
+}
+.grid-persona { border-bottom: solid 1px #CCDEDC; padding: 30px 0;
+	&:first-child { padding-top: 10px; }
+	&:last-child { border-bottom: none; margin-bottom: 45px; }
+	&:nth-child(odd) .foto-persona { -webkit-transform: scaleX(-1); transform: scaleX(-1); }
+	&:nth-child(even) {
+		.nombre { color: #8AD6CC !important; }
+		.outline { text-shadow: 0 1px 1px #8AD6CC, 0 -1px 1px #8AD6CC, 1px 0 1px #8AD6CC, -1px 0 1px #8AD6CC !important; }
+		p:nth-child(3) a .net { fill: #F16F70 !important; }
+		p:nth-child(3) a:hover .net { fill: #8ad6cc !important; }
+	}
+}

@@ -1,0 +1,3 @@
+.publicacion {
+	img { width: 90%; }
+}

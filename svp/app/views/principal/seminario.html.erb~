@@ -1,0 +1,94 @@
+<%= render 'principal/header' %>
+<div class="encabezado-seccion uk-text-center">
+	<span class="titulo-encabezado"><%= @sem.titulo.gsub(/<.*?>/,"") %></span>
+</div>
+<div class="contenido">
+	<div class="seccion-pub">
+		<img id="img-agenda" data-src="<%= @sem.banner.present? ? @sem.banner.url : '' %>" data-width data-height uk-img>
+		<% if @sem.descripcion.present? %>
+		<span class="titulo desc-pub">Sobre la <span class="outline blanco">sesión</span></span><br>
+		<%= @sem.descripcion.gsub(/<(\/?)div>/,'<\1p>').html_safe %>
+		<% end %>
+	</div>
+	<% if @sem.liga_vid.present? %>
+	<div class="seccion-pub">
+		<span class="titulo">Video</span><br>
+		<% @sem.liga_vid.split(/ *\n */).reject{|x| x.empty? }.each_with_index do |v,i| %>
+			<% v_id = (v.include?("youtube") ? v.scan(/v=([^&]*)/)[0][0] : v.split("/")[3].gsub(/(&)|(\/)|(\?).*/,"")) %>
+			<% if @sem.liga_vid.split(/ *\n */).size == 1 || i == 0 %>
+				<iframe class="video-princ" src="https://www.youtube.com/embed/<%= v_id  %>" allowfullscreen></iframe>
+			<% else %>
+				<% if (i - 1) % 3 == 0 %>
+				<div class="uk-grid-collapse uk-child-width-1-3@s" uk-grid uk-lightbox>
+				<% end %>
+				<div class="thumb-video">
+					<a href="https://www.youtube.com/watch?v=<%= v_id %>">
+						<img data-src="http://img.youtube.com/vi/<%= v_id %>/hqdefault.jpg" data-width data-height uk-img>
+					</a>
+				</div>
+				<% if (i - 1) % 3 == 2 || i == @sem.liga_vid.split(/ *\n */).size - 1 %>
+				</div>
+				<% end %>
+			<% end %>
+		<% end %>
+	</div>
+	<% end %>
+	<% if @pubs.size > 0 %>
+	<div class="seccion-pub">
+		<span class="titulo">Documento <span class="outline blanco">relacionado</span></span><br>
+		<% @pubs.all.each do |pub| %>
+			<div class="uk-grid-collapse grid-pub-sem" uk-grid>
+				<div class="portada-pub uk-text-center uk-width-1-3@m">
+					<img data-src="<%= pub.portada.url(:thumbnail) %>" data-width data-height uk-img>
+				</div>
+				<div class="desc-pub uk-width-2-3@m uk-flex">
+					<p class="ficha-pub">
+						<span class="outline-negro blanco">Autoría:</span> <%= pub.autor.gsub("\n","<br>").html_safe %><br>
+						<% if pub.edicion.present? %>
+						<span class="outline-negro blanco">Edición:</span> <%= pub.edicion.gsub("\n","<br>").html_safe %>
+						<% end %>
+					</p>
+				</div>
+			</div>
+		<% end %>
+	</div>
+	<% end %>
+	<% if @imgs.size > 0 %>
+	<div class="seccion-pub">
+		<span class="titulo">Galería de <span class="outline blanco">imágenes</span></span><br>
+		<div uk-slider="" style="max-width: 1000px; margin: 0 auto; margin-top: 25px; width: 95%">
+			<div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1">
+				<ul class="uk-slider-items uk-grid-collapse uk-child-width-1-1 uk-width-1-1" uk-grid style="width: 100% !important;">
+					<% @imgs.each do |img| %>
+					<li>
+						<img data-src="<%= img.imagen.url(:thumb_cut) %>" data-width data-height uk-img alt="<%= img.caption %>">
+					</li>
+					<% end %>
+				</ul>
+				<a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+				<a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
+			</div>
+		</div>
+	</div>
+	<% end %>
+</div>
+<script>
+	document.addEventListener("DOMContentLoaded", function(){
+		var xhr = new XMLHttpRequest();
+		xhr.open("get","https://www.colmex.mx/catalogo_eventos.json?titulo=<%= @sem.titulo %>");
+		xhr.onload = function(){
+			if(xhr.status === 200){
+				var data = JSON.parse(xhr.response);
+				if(data["videos"].length > 0){
+					document.querySelector("#img-agenda").setAttribute("src", data["videos"][0]["ligaImagen"].replace("http","https"));
+				}
+			}
+		}
+		xhr.send();
+	});
+	window.addEventListener("resize", function(){
+		document.querySelector(".video-princ").style.height = document.querySelector(".video-princ").offsetWidth * (9/16) + "px";
+	});
+	window.dispatchEvent(new Event("resize"));
+</script>
+<%= render 'principal/footer' %>

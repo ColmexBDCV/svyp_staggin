@@ -1,0 +1,13 @@
+.lista-letra { counter-reset: letra; list-style-type: none;
+	li { 
+		&::before{
+			display: inline-block;
+			margin-left: -10px;
+			content: counter(letra, lower-alpha) ") ";
+			counter-increment: letra;
+			text-shadow: 0 1px 1px #F16F70, 0 -1px 1px #F16F70, 1px 0 1px #F16F70, -1px 0 1px #F16F70;
+			color: #FFFFFF;
+			font-size: 45px;
+		}
+	}
+}

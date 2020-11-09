@@ -1,0 +1,69 @@
+<% if admin_signed_in? %>
+<div class="cont-gest">
+
+	<div class="barra-gest">
+		<div id="brand-gest">
+			<%= image_tag("colmex.png", class: "img-brand") %>
+			<div class="toggle-panel" id="but-toggle">
+				<div class="bars-toggle" id="bar-s"></div>
+				<div class="bars-toggle" id="bar-m"></div>
+				<div class="bars-toggle" id="bar-i"></div>
+			</div>
+			<div class="toggle-panel" id="mask-toggle" onmouseenter="changeToggle(0);" onmouseleave="changeToggle(1);" onclick="slideMenu();">
+			</div>
+		</div>
+		<div id="title-gest">
+			<div id="opciones-gest">
+				<i class="fa fa-plus" aria-hidden="true" id="glyph-new"></i>
+				<i class="fa fa-arrow-left" aria-hidden="true" id="glyph-back"></i>
+				<i class="fa fa-home" aria-hidden="true" id="glyph-home"></i>
+				<i class="fa fa-pencil" aria-hidden="true" id="glyph-edit"></i>
+			</div>
+			<span id="text-title-gest">Panel gestor de contenido</span>
+		</div>
+	</div>
+
+
+	<div class="body-gest">
+		<div id="menu-lat">
+			<ul id="ops-lat">
+<% @sets.keys.sort.each do |k| %>
+				<li class="op-gest">
+				<a class="link-panel" onclick="hideLink(event,'#ops-lat','<%= panel_index_path(:set => k.to_s, :offset => 0) %>')"><%= k.to_s %></a>
+				</li>
+<% end %>
+
+
+<% if false %>
+				<li class="op-gest">
+				<a class="link-panel" onclick="hideLink(event,'#ops-lat','<%= panel_index_path(:set => "Usuarios gestores", :offset => 0) %>')">Usuarios gestores</a>
+				</li>
+				<li class="op-gest">
+				<a class="link-panel" onclick="hideLink(event,'#ops-lat','<%= panel_index_path(:set => "Catálogo de sitios", :offset => 0) %>')">Catálogo de sitios</a>
+				</li>
+<% end %>
+				<li class="op-gest">
+				<a class="link-panel" href="<%= destroy_admin_session_path %>" data-method="DELETE" rel="nofollow">Cerrar sesión</a>
+				</li>
+			</ul>
+		</div>
+		<div id="graphs-gest">
+		<p id="notice"><%= notice %></p>
+		</div>
+
+	</div>
+</div>
+
+<div id="tooltip-backend">
+</div>
+
+<script type="text/javascript">
+	$.ajax({
+		url: "<%= panel_princ_path(notice: params[:notice] || "") %>",
+		success: function(result){
+			return true;
+		}
+	});
+</script>
+
+<% end %>

@@ -1,0 +1,8 @@
+<% @videos.each do |v| %>
+<div class="seminario uk-text-center">
+	<a href="https://www.youtube.com/watch?v=<%= v.v_id %>" target="_blank">
+		<img class="img-video" data-src="https://img.youtube.com/vi/<%= v.v_id %>/hqdefault.jpg" data-width data-height uk-img>
+	</a>
+</div>
+<% end %>
+<% '(v.liga.include?("youtube") ? v.liga.scan(/v=([^&]*)/)[0][0] : v.liga.split("/")[3].gsub(/(&)|(\/)|(\?).*/,""))' %>

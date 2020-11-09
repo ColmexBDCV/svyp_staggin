@@ -1,0 +1,123 @@
+<% if admin_signed_in? %>
+
+<p id="notice"><%= notice %></p>
+
+<h1>Listado de <%= params[:set] %></h1><br>
+
+<%= render "panel/params_filtro", set: params[:set] %>
+
+<% if false %>
+<a class="uk-link" onclick="hideLink(event,'#index-panel','<%= panel_nuevo_path(:set => params[:set]) %>')">Nuevo elemento</a>
+<% end %>
+<table id="index-panel">
+  <thead>
+    <tr id="header-ind">
+			<% @fields.values.each_with_index do |f,i| %>
+			<td class="head-ind"><%= f %><br><span class="span-cursor" data-field="<%= @fields.keys[i].to_s %>" data-order="asc" title="Ordenar de manera ascendente" onclick="<%= "hideLink(event,'#index-panel','#{panel_index_post_path(set: params[:set], offset: params[:offset].to_i)}','POST',document.getElementById('keyword').value,null,this,true)" %>"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span> <span class="span-cursor" title="Ordenar de manera descendente" data-field="<%= @fields.keys[i].to_s %>" data-order="desc"  onclick="<%= "hideLink(event,'#index-panel','#{panel_index_post_path(set: params[:set], offset: params[:offset].to_i)}','POST',document.getElementById('keyword').value,null,this,true)" %>"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span><span class="fa-stack span-cursor span-oculto" title="No ordenar" data-field="<%= @fields.keys[i].to_s %>" data-order="nil"  onclick="<%= "hideLink(event,'#index-panel','#{panel_index_post_path(set: params[:set], offset: params[:offset].to_i)}','POST',document.getElementById('keyword').value,null,this,true)" %>"><i class="fa fa-stack-1x fa-square span-canvas" aria-hidden="true"></i><i class="fa fa-stack-1x fa-times fa-inverse span-lay-c" aria-hidden="true"></i></span></td>
+			<% end %>
+			<% @imgs.values.each do |f| %>
+			<td class="head-ind"><%= f.is_a?(Array) ? f[0] : f %></td>
+			<% end %>
+			<td class="head-ind-img" style="width:130px;"></td>
+    </tr>
+  </thead>
+
+  <tbody style="font-size:14px;">
+    <% @set.each do |s| %>
+      <tr class="row-ind">
+				<% @fields.keys.each do |f| %>
+        <td class="ind-cell">
+				<% if @trix.include?(f) %>
+					<div style="max-height:500px;width:100%;overflow:hidden;">
+				<% end %>
+					<%= raw(s[f.to_s]) %>
+				<% if @trix.include?(f) %>
+					</div>
+				<% end %>
+				</td>
+				<% end %>
+				<% @imgs.keys.each do |f| %>
+					<% logger.debug s.public_send(f).class %>
+					<td class="ind-cell">
+					<% if !s.public_send(f).is_a?(Paperclip::Attachment) && s.public_send(f).attached? %>
+						<% if !s.public_send(f).content_type.include?("image") %>
+							<object type="application/pdf" data="<%= rails_blob_path(s.public_send(f)) %>"><embed src="<%= rails_blob_path(s.public_send(f)) %>" type="application/pdf"></object>
+						<% else %>
+							<%= image_tag s.public_send(f) %>
+						<% end %>
+					<% elsif s.public_send(f).is_a?(Paperclip::Attachment) && s.public_send(f).present? %>
+						<% if !s.public_send(f).content_type.include?("image") %>
+							<object type="application/pdf" data="<%= s.public_send(f).url %>"><embed src="<%= s.public_send(f).url %>" type="application/pdf"></object>
+						<% else %>
+							<% if !s.public_send(f).is_a?(Array) %>
+								<%= image_tag s.public_send(f).url %>
+							<% else %>
+								<% Galeria.where("model = ? and m_id = ?", @model.to_s, s.id).each do |g| %>
+									<%= image_tag g.url %>
+								<% end %>
+							<% end %>
+						<% end %>
+					<% end %>
+					</td>
+				<% end %>
+				<td class="ind-cell-img" style="width:130px;">
+					<a class="link-img-panel" onclick="hideLink(event,'#index-panel','<%= panel_mostrar_path(:set => params[:set], :id => s.id) %>')"><i class="clickable-g fa fa-eye" aria-hidden="true"></i></a>
+					<a class="link-img-panel" onclick="hideLink(event,'#index-panel','<%= panel_editar_path(:set => params[:set], :id => s.id) %>')"><i class="clickable-g fa fa-pencil" aria-hidden="true"></i></a>
+					<% if params[:set] != "Contenido de sitios" %>
+					<a class="link-img-panel" onclick="hideLink(event,'#index-panel','<%= panel_eliminar_path(:set => params[:set], :id => s.id) %>','DELETE')"><span class="clickable-g fa fa-trash" sria-hidden="true"></i></a>
+					<% end %>
+				</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<div id="pag-container">
+
+	<% if @pags > 1 %>
+		<span class="numeros active" onclick="hideLink(event,'#index-panel','<%= panel_index_post_path(set: params[:set], offset: 0) %>','POST',document.getElementById('keyword').value,null,null,true)"><i class="fa fa-angle-double-left"></i></span>
+		<span class="numeros active" onclick="hideLink(event,'#index-panel','<%= panel_index_post_path(set: params[:set], offset: (params[:offset].to_i - 1 < 0 ? 0 : params[:offset].to_i - 1)) %>','POST',document.getElementById('keyword').value,null,null,true)"><i class="fa fa-angle-left"></i></span>
+	<% end %>
+
+<% @pags.times do |i| %>
+	<span class="numeros" data-tipo="pag" data-pag="<%= i %>" onclick="hideLink(event,'#index-panel','<%= panel_index_post_path(set: params[:set], offset: i) %>','POST',document.getElementById('keyword').value,null,null,true)"><%= i + 1 %></span>
+<% end %>
+
+	<% if @pags > 1 %>
+		<span class="numeros active" onclick="hideLink(event,'#index-panel','<%= panel_index_post_path(set: params[:set], offset: (params[:offset].to_i + 1 >= @pags ? @pags - 1 : params[:offset].to_i + 1)) %>','POST',document.getElementById('keyword').value,null,null,true);"><i class="fa fa-angle-right"></i></span>
+		<span class="numeros active" onclick="hideLink(event,'#index-panel','<%= panel_index_post_path(set: params[:set], offset: @pags - 1) %>','POST',document.getElementById('keyword').value,null,null,true);"><i class="fa fa-angle-double-right"></i></span>
+	<% end %>
+</div>
+<% if false %>
+<a class="uk-link" onclick="hideLink(event,'#index-panel','<%= panel_princ_path %>')">Inicio</a>
+<% end %>
+
+<script type="text/javascript">
+function callback(){
+	document.querySelectorAll(".ind-cell").forEach(function(element){
+		if(element.innerHTML.length > 100){
+			var n_html = element.innerHTML.substring(0,100) + "..."
+			this.innerHTML = n_html;
+		}
+	});
+	highlightSort();
+
+	document.querySelector("#graphs-gest").addEventListener("scroll",function(event){
+		try{
+			fixPagination(event.currentTarget.scrollLeft, ["#pag-container","#filter-container"]);
+		} catch(err) {}
+	});
+	document.querySelector("#graphs-gest").dispatchEvent(new CustomEvent('scroll'));
+}
+
+if (
+    document.readyState === "complete" ||
+    (document.readyState !== "loading" && !document.documentElement.doScroll)
+) {
+  callback();
+} else {
+  document.addEventListener("DOMContentLoaded", callback);
+}
+</script>
+<% end %>

@@ -1,0 +1,22 @@
+.seccion-pub { padding-top: 50px; padding-bottom: 80px; border-bottom: solid 1px #CCDEDC;
+	&:first-child { padding-top: 0; }
+	&:last-child { border-bottom: none; }
+	&:nth-child(odd) .titulo { color: #F16F70 !important; 
+		.outline { text-shadow: 0 1px 1px #F16F70, 0 -1px 1px #F16F70, 1px 0 1px #F16F70, -1px 0 1px #F16F70; }
+	}
+	&:nth-child(even) .titulo { color: #8AD6CC !important;
+		.outline { text-shadow: 0 1px 1px #8AD6CC, 0 -1px 1px #8AD6CC, 1px 0 1px #8AD6CC, -1px 0 1px #8AD6CC; }
+	}
+}
+.img-portada { width: 80%; max-width: 850px; box-shadow: 20px 10px 5px #CCDEDC; }
+.ficha-pub { font-size: 30px !important; color: #595E5D !important; font-family: "Montserrat" !important; font-weight: 700 !important; text-transform: uppercase; margin-bottom: 0; margin-top: auto; }
+.outline-negro { text-shadow: 0 1px 1px #595E5D, 0 -1px 1px #595E5D, 1px 0 1px #595E5D, -1px 0 1px #595E5D; }
+.desc-pub { margin-top: 25px; }
+.video-princ { display: block; margin: 35px auto; width: 80%; max-width: 1000px; }
+.grid-pub-sem { width: 80%; margin: 35px auto; }
+.portada-pub img { max-width: 290px; height: auto; width: 65%; }
+#img-agenda { max-width: 1000px; width: 90%; display: block; margin: 45px auto; margin-top: 0; }
+
+@media only screen and (max-width: 960px) {
+	.ficha-pub { margin-top: 25px; }
+}

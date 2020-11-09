@@ -1,0 +1,133 @@
+<div id="header" uk-sticky="animation: uk-animation-slide-top; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; cls-inactive: uk-navbar-transparent; top: 200">
+		<div class="uk-width-1-1 net-holder uk-text-right">
+			<a class="social-network" href="https://twitter.com/SViolenciayPaz" target="_blank">
+				<svg viewBox="0 0 30 30" class="net-img"><use class="net" href="#tw"></use></svg>
+			</a>
+			<a class="social-network" href="https://www.facebook.com/sviolenciaypaz" target="_blank">
+				<svg viewBox="0 0 30 30" class="net-img"><use class="net" href="#fb"></use></svg>
+			</a>
+		</div>
+	<nav class="uk-navbar-container" uk-navbar>
+		<div class="uk-width-1-1 uk-text-center logo-holder fixed">
+			<a href="<%= root_path %>">
+				<img class="logo-svp" data-src="<%= image_url("logo-svp-color.svg") %>" data-width data-height uk-img>
+			</a>
+		</div>
+		<div class="uk-width-1-1 uk-text-center fixed" style="margin-top: 10px;">
+			<ul class="uk-inline-block uk-navbar-nav" id="menu-header">
+				<li>
+					<a class="<%= action_name == 'acerca' ? 'active' : '' %>" href="<%= acerca_path %>">Acerca de</a>
+					<div class="uk-navbar-dropdown">
+						<ul class="uk-nav uk-navbar-dropdown-nav">
+							<li><a class="<%= action_name == 'colaboradores' ? 'active' : '' %>" href="<%= colaboradores_path %>">Colaboradores</a></li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<a class="<%= action_name == 'seminarios' ? 'active' : '' %>" href="<%= seminarios_path %>">Seminarios</a>
+					<div class="uk-navbar-dropdown">
+						<ul class="uk-nav uk-navbar-dropdown-nav">
+							<% @anios.each do |a| %>
+							<li><a class="<%= action_name == 'seminarios' && params[:anio].to_i == a.to_i  ? "active" : "" %>" href="<%= seminarios_path(anio: a.to_i) %>"><%= a.to_i %></a></li>
+							<% end %>
+						</ul>
+					</div>
+				</li>
+				<li><a class="<%= action_name == 'publicaciones' ? 'active' : '' %>" href="<%= publicaciones_path %>">Publicaciones</a></li>
+				<li><a class="<%= action_name == 'multimedia' ? 'active' : '' %>" href="<%= multimedia_path %>">Multimedia</a></li>
+				<li>
+					<a class="<%= action_name == 'archivo' ? 'active' : '' %>" href="#">Documentos de Consulta</a>
+					<div class="uk-navbar-dropdown">
+						<ul class="uk-nav uk-navbar-dropdown-nav">
+							<li><a class="<%= action_name == 'archivo'  ? 'active' : '' %>" href="<%= archivo_path %>">Archivo General de la Nación/Catálogo DFS</a></li>
+						</ul>
+					</div>
+				</li>
+				<% if false %>
+				<li><a href="#">Cursos</a></li>
+				<% end %>
+			</ul>
+		</div>
+		<div class="uk-navbar-left uk-text-center logo-holder sticky">
+			<a class="uk-flex" href="<%= root_path %>">
+				<img class="logo-svp" data-src="<%= image_url("logo-svp-color.svg") %>" data-width data-height uk-img>
+			</a>
+		</div>
+		<div class="uk-navbar-right uk-text-center sticky">
+			<ul class="uk-inline-block uk-navbar-nav" id="menu-header">
+				<li>
+					<a class="<%= action_name == 'acerca' ? "active" : "" %>" href="<%= acerca_path %>">Acerca de</a>
+					<div class="uk-navbar-dropdown">
+						<ul class="uk-nav uk-navbar-dropdown-nav">
+							<li><a class="<%= action_name == 'colaboradores' ? "active" : "" %>" href="<%= colaboradores_path %>">Colaboradores</a></li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<a class="<%= action_name == 'seminarios' ? "active" : "" %>" href="<%= seminarios_path %>">Seminarios</a>
+					<div class="uk-navbar-dropdown">
+						<ul class="uk-nav uk-navbar-dropdown-nav">
+							<% @anios.each do |a| %>
+							<li><a class="<%= action_name == 'seminarios' && params[:anio].to_i == a.to_i  ? "active" : "" %>" href="<%= seminarios_path(anio: a.to_i) %>"><%= a.to_i %></a></li>
+							<% end %>
+						</ul>
+					</div>
+				</li>
+				<li><a class="<%= action_name == 'publicaciones' ? "active" : "" %>" href="<%= publicaciones_path %>">Publicaciones</a></li>
+				<li><a class="<%= action_name == 'multimedia' ? "active" : "" %>" href="<%= multimedia_path %>">Multimedia</a></li>
+				<li>
+					<a class="<%= action_name == 'archivo' ? 'active' : '' %>" href="#">Documentos de Consulta</a>
+					<div class="uk-navbar-dropdown">
+						<ul class="uk-nav uk-navbar-dropdown-nav">
+							<li><a class="<%= action_name == 'archivo'  ? 'active' : '' %>" href="<%= archivo_path %>">Archivo General de la Nación/Catálogo DFS</a></li>
+						</ul>
+					</div>
+				</li>
+				<% if false %>
+				<li><a href="#">Cursos</a></li>
+				<% end %>
+			</ul>
+			<a id="modal-menu" class="uk-navbar-toggle" uk-navbar-toggle-icon uk-toggle href="#menu-lateral"></a>
+		</div>
+	</nav>
+</div>
+<div id="menu-lateral" uk-offcanvas="overlay: true; flip: true">
+	<div class="uk-offcanvas-bar uk-offcanvas-bar-animation uk-offcanvas-slide">
+		<ul class="uk-nav-default" uk-nav>
+			<li><a href="<%= acerca_path %>" class="<%= action_name == 'acerca' ? "uk-active" : "" %>">Acerca de</a></li>
+			<li><a href="<%= colaboradores_path %>" class="<%= action_name == 'colaboradores' ? "uk-active" : "" %>">Colaboradores</a></li>
+			<li class="uk-parent <%= action_name == 'seminarios' ? 'uk-open' : '' %>">
+				<a href="#" class="<%= action_name == 'seminarios' ? "uk-active" : "" %>">Seminarios</a>
+				<ul class="uk-nav-sub">
+					<% @anios.each do |a| %>
+					<li><a class="<%= action_name == 'seminarios' && params[:anio].to_i == a.to_i  ? "uk-active" : "" %>" href="<%= seminarios_path(anio: a.to_i) %>"><%= a.to_i %></a></li>
+					<% end %>
+				</ul>
+			</li>
+			<li><a class="<%= action_name == 'publicaciones' ? "uk-active" : "" %>" href="<%= publicaciones_path %>">Publicaciones</a></li>
+			<li><a class="<%= action_name == 'multimedia' ? "uk-active" : "" %>" href="<%= multimedia_path %>">Multimedia</a></li>
+			<li class="uk-parent <%= action_name == 'archivo' ? 'uk-open' : '' %>">
+				<a href="#" class="<%= action_name == 'archivo' ? "uk-active" : "" %>">Documentos de Consulta</a>
+				<ul class="uk-nav-sub">
+					<li><a class="<%= action_name == 'archivo'  ? "uk-active" : "" %>" href="<%= archivo_path %>">Archivo General de la Nación/Catálogo DFS</a></li>
+				</ul>
+			</li>
+			<li>
+				<div class="uk-grid-collapse uk-flex-center" style="margin: 15px auto;" uk-grid>
+					<div>
+						<a class="net-ofc social-network" href="https://twitter.com/SViolenciayPaz" target="_blank">
+							<svg viewBox="0 0 30 30" class="net-img" xmlns="http://www.w3.org/2000/svg" width="30" height="30"><use href="#tw"></use></svg>
+						</a>
+					</div>
+					<div>
+						<a class="net-ofc social-network" href="https://www.facebook.com/sviolenciaypaz" target="_blank">
+							<svg  viewBox="0 0 30 30" class="net-img" xmlns="http://www.w3.org/2000/svg" width="30" height="30"><use href="#fb"></use></svg>
+						</a>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>
+
+

@@ -1,0 +1,33 @@
+<%= render 'principal/header' %>
+<div class="encabezado-seccion uk-text-center">
+	<span class="titulo-encabezado"><%= @pub.titulo.gsub(/<.*?>/,"") %></span>
+</div>
+<div class="contenido">
+	<div class="seccion-pub uk-grid-collapse" uk-grid>
+		<div class="uk-width-1-3@m uk-text-center">
+			<img class="img-portada" data-src="<%= @pub.portada.url(:thumbnail) || @pub.documento.url(:thumbnail) %>" data-width data-height uk-img>
+		</div>
+		<div class="uk-width-2-3@m uk-position-relative">
+			<p class="uk-position-bottom ficha-pub">
+				<% if @pub.autor.present? %>
+				<span class="outline-negro blanco">Autoría:</span> <%= @pub.autor.gsub("\n","<br>").html_safe %><br>
+				<% end %>
+				<% if @pub.edicion.present? %>
+				<span class="outline-negro blanco">Edición:</span> <%= @pub.edicion.gsub("\n","<br>").html_safe %>
+				<% end %>
+			</p>
+		</div>
+	</div>
+	<% if @pub.descripcion.present? %>
+	<div class="seccion-pub">
+		<span class="titulo desc-pub">Sobre la <span class="outline blanco">publicación</span></span><br>
+		<%= @pub.descripcion.gsub(/<(\/?)div>/,'<\1p>').html_safe %>
+	</div>
+	<% end %>
+	<% if @pub.liga_vid.present? %>
+	<div class="seccion-pub">
+		<span class="titulo">Video</span><br>
+	</div>
+	<% end %>
+</div>
+<%= render 'principal/footer' %>

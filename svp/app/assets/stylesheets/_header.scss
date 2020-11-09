@@ -1,0 +1,100 @@
+.net-holder {  padding: 15px 0; width: 90%; margin: 0 auto; padding-top: 15px; }
+a .net { fill: #8ad6cc; -webkit-transition: all 0.3s linear; -moz-transition: all 0.3s linear; -ms-transition: all 0.3s linear; -o-transition: all 0.3s linear; transition: all 0.3s linear; } 
+a:hover { text-decoration: none;
+	.net { fill: #F16F70; }
+}
+.net-img { max-width: 30px; width:100%; height: auto; max-height: 30px; }
+#header { background-color: #FFFFFF;
+	nav { width: 90%; margin: 0 auto; padding-bottom: 50px; display: block !important; background-color: #FFFFFF !important; }
+	.logo-holder { padding: 10px 0;
+		.logo-svp { max-width: 350px; width: 95%; height: auto; min-width: 200px; }
+		&.sticky > a { width: 100%; height: 100%; }
+	}
+	.fixed { display: block; }
+	.sticky { display: none; }
+	#menu-header, .uk-navbar-nav { list-style-type: none;
+		> li { float: left; padding: 10px 10px; max-width: 250px;
+			> a, a { color: #4D4F4E;
+				font-size: 20px;
+				min-height: 0;
+				text-transform: uppercase;
+				text-decoration: none;
+				letter-spacing: 0.15em;
+				display: inline-block;
+				margin: 5px 10px;
+				position: relative;
+				-webkit-transition: all 0.3s linear;
+				-moz-transition: all 0.3s linear;
+				-ms-transition: all 0.3s linear;
+				-o-transition: all 0.3s linear;
+				transition: all 0.3s linear;
+				&:hover { color: #8AD6CC }
+				&:after {    
+					background: none repeat scroll 0 0 transparent;
+					bottom: 0;
+					content: "";
+					display: block;
+					height: 2px;
+					left: 50%;
+					position: absolute;
+					background: #8AD6CC;
+					transition: width 0.3s ease 0s, left 0.3s ease 0s;
+					width: 0;
+				}
+				&:hover:after { 
+					width: 100%; 
+					left: 0; 
+				}
+				&.active:hover { color: #F16F70; }
+				&.active:after {    
+					background: none repeat scroll 0 0 transparent;
+					bottom: 0;
+					content: "";
+					display: block;
+					height: 2px;
+					left: 0;
+					position: absolute;
+					background: #F16F70;
+					transition: width 0.3s ease 0s, left 0.3s ease 0s;
+					width: 100%;
+				}
+			}
+		}
+	}
+	.uk-navbar-dropdown { width: auto; }
+	.fixed { display: block; }
+	.sticky { display: none; }
+	&.uk-sticky-below {
+		nav { display: flex !important; background-color: #FFFFFF !important; }
+		.uk-navbar-left { width: 23%; height: 100%; }
+		.fixed { display: none; }
+		.sticky { display: flex; }
+	}
+}
+#modal-menu { display: none; }
+
+@media only screen and (max-width: 1391px){
+	.uk-text-center.fixed {display: none !important; }
+	#menu-header { display: none; }
+	#modal-menu { display: flex; width: 70px; }
+	.logo-holder.fixed {display: none !important; }
+	.uk-navbar-left, .uk-navbar-right { display: flex !important; }
+	#header nav { display: flex !important; padding-bottom: 0; }
+}
+
+#menu-lateral .uk-offcanvas-bar { background-color: #BCE2D3; padding: 0;
+	>ul >li {
+		>a { background-color: #FFFFFF; font-size: 22px; font-family: "Roboto"; font-weight: 600; color: #303635; padding: 0 15px; margin: 7px 0; -webkit-transition: all 0.3s linear; -moz-transition: all 0.3s linear; -ms-transition: all 0.3s linear; -o-transition: all 0.3s linear; transition: all 0.3s linear;
+			&:hover, &.uk-active { color: #FFFFFF; background-color: #F16F70; }
+		}
+		.uk-nav-sub { padding: 0;
+			a { padding: 0 25px; padding-right: 15px; background-color: #BCE2D3; font-size: 19px; font-family: "Roboto"; font-weight: 600; color: #A6A6A6; -webkit-transition: all 0.3s linear; -moz-transition: all 0.3s linear; -ms-transition: all 0.3s linear; -o-transition: all 0.3s linear; transition: all 0.3s linear;
+				&:hover, &.uk-active { background-color: #FFFFFF; color: #303635; }
+			}
+		}
+	}
+}
+
+.net-ofc { margin: 0 5px; }
+.net-ofc use { fill: #A6A6A6;  -webkit-transition: all 0.3s linear; -moz-transition: all 0.3s linear; -ms-transition: all 0.3s linear; -o-transition: all 0.3s linear; transition: all 0.3s linear; }
+.net-ofc:hover use { fill: #F16F70; }

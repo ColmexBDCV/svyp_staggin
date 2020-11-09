@@ -1,0 +1,10 @@
+.seminario {
+	img { width: 88%; box-shadow: 20px 10px 5px #CCDEDC; }
+}
+.boton-seminario { display: inline-block; color: #FFFFFF; font-family: "Montserrat"; font-weight: 700; background-color: #A6A6A6; padding: 5px 10px; -webkit-transition: all 0.3s linear; -moz-transition: all 0.3s linear; -ms-transition: all 0.3s linear; -o-transition: all 0.3s linear; transition: all 0.3s linear; margin: 35px 0 !important;
+	&:hover { background-color: #F16F70; color: #FFFFFF; }
+}
+.sel-year { max-width: 380px; margin: 50px auto; }
+.sem-year { cursor: pointer; text-transform: uppercase; text-shadow: 0 1px 1px #F16F70, 0 -1px 1px #F16F70, 1px 0 1px #F16F70, -1px 0 1px #F16F70; font-family: "Montserrat"; font-weight: 700; font-size: 40px; color: #FFFFFF; -webkit-transition: all 0.3s linear; -moz-transition: all 0.3zs linear; -ms-transition: all 0.3s linear; -o-transition: all 0.3s linear; transition: all 0.3s linear;
+	&:hover, &.active { color: #8AD6CC; text-shadow: none; }
+}

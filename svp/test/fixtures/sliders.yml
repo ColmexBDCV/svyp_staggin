@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  banner: 
+  liga: MyText
+  indice: 1
+
+two:
+  banner: 
+  liga: MyText
+  indice: 1

@@ -1,0 +1,6 @@
+.lista { width: 90%; margin: 0 auto;
+	.letra { float: left; width: 50px; text-shadow: 0 1px 1px #F16F70, 0 -1px 1px #F16F70, 1px 0 1px #F16F70, -1px 0 1px #F16F70; color: #FFFFFF; font-size: 45px; font-family: "Montserrat"; }
+	.parrafo { float: left; width: -webkit-calc(100% - 50px); width: -moz-calc(100% - 50px); width: calc(100% - 50px);
+		p { width: 100%; }
+	}	
+}

@@ -1,0 +1,6 @@
+<% @sems.each_with_index do |s,i| %>
+<div class="seminario uk-text-center">
+	<img id="img-sem-<%= i %>" data-src="" data-width data-height uk-img>
+	<a class="boton-seminario" href="<%= seminario_path(sem: s.titulo.parameterize) %>">Más información</a>
+</div>
+<% end %>

@@ -1,0 +1,92 @@
+<% if false %>
+<% parts = {"Profesores eméritos": "emerito", "Programas docentes": "progs", "Directorio de Autoridades": "auts", "Categorías de Premios": "cats_p", "Premios y distinciones": "pd", "Documentos varios": "docs", "Descubre": "descs", "Categorías de Descubre": "cats_d", "Imágenes de slider": "slider", "Cátedras y seminarios": "sems", "Frases en página principal": "frases", "Directorio académico": "acad", "Usuarios gestores": "admins", "Catálogo de sitios": "sites", "Contenido de sitios": "contenidos", "Becarios postdoctorales": "postdocs", "Convocatoria de beca postdoctoral": "becaspd"} %>
+
+	<%= render ('panel/form_'+parts[params[:set].to_sym]) %>
+<% end%>
+
+<%= form_for(@obj, :remote => true, :url => {:controller => "panel", :action => (action_name == "editar" ? "editar" : "crear"), :params => {:set => params[:set], :id => (@obj.id if action_name == "editar")}}, :html => { :multipart => true }) do |f| %>
+  <% if @obj.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@obj.errors.count, "error") %> impidieron generar este objeto:</h2>
+
+      <ul>
+      <% @obj.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+<% @fields.each do |k,v| %>
+  <div class="field">
+    <%= f.label k, v %><br>
+		<% if @trix.include?(k) %>
+    	<%= f.trix_editor k  %>
+		<%  elsif @plains.include?(k) %>
+			<%= f.text_field k, autocomplete: "off", required: (@presence.include?(k) ? "required" : false) %>
+		<% elsif @dates.include?(k) %>
+			<%= f.text_field k, autocomplete: "off", class: "fechas", required: (@presence.include?(k) ? "required" : false) %>
+		<% elsif @textareas.include?(k) %>
+			<%= f.text_area k, required: (@presence.include?(k) ? "required" : false) %>
+		<% elsif @selects.key?(k) %>
+			<%= f.select(k, @selects[k], selected: (@obj.public_send(k) || @selects[k][0][0]), required: (@presence.include?(k) ? "required" : false) ) %>
+		<% elsif @checks.include?(k) %>
+			<% @checks[k].each do |t,v| %>
+		  	<%= f.check_box k, {multiple: true, checked: @obj.public_send(k) && @obj.public_send(k).include?(v)}, v, nil %>
+				<%= f.label k, t %><br>
+			<% end %>
+			<%= f.hidden_field k, multiple: true, value: [] %>
+		<% elsif @numbers.include?(k) %>
+			<%= f.number_field k, min: 1, step: 1, value: (@obj.public_send(k) || 1), required: (@presence.include?(k) ? "required" : false) %>
+		<% end %>
+	</div>
+<% end %>
+<% @imgs.each do |k,v| %>
+	<% atc_cont_id = "#{@models.to_s.gsub(/(.)([A-Z])/,'\1_\2').downcase}_#{k.to_s}" %>
+  <div class="field field-media">
+		<div class="photo-upload">
+    <%= f.label k, raw("<i class=\"fa fa-upload\"></i>Añadir #{v.is_a?(Array) ? v[0].mb_chars.downcase : v.mb_chars.downcase}"), class: "lab-img" %><br>
+    <%= f.file_field k, onchange: "readURL(this,'##{atc_cont_id}_cont','##{atc_cont_id}_del')" %><br>
+    <%= f.check_box "#{k.to_s}_del".to_sym, {checked: false, onclick: "deleteImage(this,'#{atc_cont_id}_cont');"}, "1", "0" %>
+			<%= f.label "#{k.to_s}_del".to_sym, "Eliminar #{v.is_a?(Array) ? v[0].mb_chars.downcase : v.mb_chars.downcase}" %><br>
+		</div>
+		<div class="img-display" id="<%= "#{atc_cont_id}_cont" %>">
+			<% if !@obj.public_send(k).is_a?(Paperclip::Attachment) && @obj.public_send(k).attached? %>
+				<% if !@obj.public_send(k).content_type.include?("image") %>
+						<object type="application/pdf" data="<%= rails_blob_path(@obj.public_send(k)) %>"><embed src="<%= rails_blob_path(@obj.public_send(k)) %>" type="application/pdf"></object>
+				<% else %>
+					<%= image_tag @obj.public_send(k) %>
+				<% end %>
+			<% elsif @obj.public_send(k).is_a?(Paperclip::Attachment) && @obj.public_send(k).present? %>
+				<% if !@obj.public_send(k).content_type.include?("image") %>
+						<object type="application/pdf" data="<%= @obj.public_send(k).url %>"><embed src="<%= @obj.public_send(k).url %>" type="application/pdf"></object>
+				<% else %>
+						<% if !@obj.public_send(k).is_a?(Array) %>
+							<%= image_tag @obj.public_send(k).url %>
+						<% else %>
+							<% Galeria.where("model = ? and m_id = ?", @model.to_s, @obj.id).each do |g| %>
+								<%= image_tag g.url %>
+							<% end %>
+						<% end %>
+				<% end %>
+			<% else %>
+				<span>No hay <%= v.is_a?(Array) ? v[0].downcase : v.downcase %> para mostrar.</span>
+			<% end %>
+		</div>
+  </div>
+<% end %>
+	  <div class="actions">
+    <%= f.submit "#{action_name.capitalize} #{@models.to_s.downcase}" %>
+  </div>
+<% end %>
+
+<script>
+document.addEventListener("DOMContentLoaded", () =>  {
+  if(document.readyState === "interactive" || document.readyState === "complete") {
+    styleDatepickers();
+		document.querySelectorAll(".fechas").forEach( (f) => {
+			f._flatpickr.setDate(f.getAttribute("value"),true);
+		});
+}
+</script>

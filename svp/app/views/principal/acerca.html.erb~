@@ -1,0 +1,33 @@
+<%= render 'principal/header' %>
+<div class="encabezado-seccion uk-text-center">
+	<span class="titulo-encabezado">Acerca <span class="outline">de</span></span>
+</div>
+<div class="contenido">
+	<span class="titulo-seccion">Sobre <span class="outline blanco">el Seminario</span></span><br>
+	<p style="margin-top: 50px;">Desde hace algunos años México padece más fuerte que nunca una epidemia de violencia y criminalidad atribuible al crimen organizado. Las estadísticas del Secretariado Ejecutivo del Sistema Nacional de Seguridad Pública lo demuestran. Es también verificable el consenso de que la estrategia general no está funcionando.</p>
+	<p>Las divergencias han estado en la forma de atender este problema nacional. El Seminario sobre Violencia y Paz de El Colegio de México --coordinado por Sergio Aguayo-- fue creado en 2014 para generar conocimiento aplicado sobre la naturaleza de un fenómeno con raíces domésticas e internacionales. El supuesto central ha sido que estamos ante un asunto que trasciende ideologías o lealtades partidistas y que para su solución requiere de un diálogo y una convergencia entre Estado, sociedad y comunidad internacional.</p>
+	<p>El Seminario tiene las siguientes líneas de trabajo que interactúan permanentemente:</p>
+	<% if false %>
+	<ol class="lista-letra">
+		<li>Conferencias, paneles y congresos públicos y privados con los protagonistas de la violencia y la paz. Por ejemplo, cada año ha organizado entre ocho y diez sesiones públicas donde intercambian ideas y propuestas académicos, activistas, periodistas y diplomáticos en torno a temas que van variando.</li>
+	</ol>
+	<% end %>
+	<div class="lista">
+		<div class="letra">
+			<span class="outline blanco">a)</span>
+		</div>
+		<div class="parrafo">
+			<p>Conferencias, paneles y congresos públicos y privados con los protagonistas de la violencia y la paz. Por ejemplo, cada año ha organizado entre ocho y diez sesiones públicas donde intercambian ideas y propuestas académicos, activistas, periodistas y diplomáticos en torno a temas que van variando.</p>
+		</div>
+		<div class="letra">
+			<span class="outline blanco">b)</span>
+		</div>
+		<div class="parrafo">
+			<p>Elaboración de una Pedagogía de la Empatía que atiende la enorme desconfianza entre instituciones del Estado y víctimas u organismos que trabajan con víctimas. En el 2018 habremos realizado cinco cursos auspiciados por diferentes instituciones de Estado. Las más importantes han sido la Comisión Nacional de los Derechos Humanos, la Comisión Ejecutiva de Atención a Víctimas y la Policía Federal. Los cursos de 60 horas tienen como cursantes a funcionarios que atienden víctimas (50%) y víctimas o integrantes de organizaciones que las atienden (50%). Los cursos son analizados por un equipo de terapeutas que van detectando los detonadores o inhibidores de empatía. Ya tenemos los recursos para transformar esta experiencia en una propuesta de Pedagogía de la Empatía que estará lista a finales de 2018. Difundiremos los resultados para que puedan ser replicados.</p>
+		</div>
+	</div>
+
+	<p>Una de críticas más frecuentes a la estrategia actual es la falta de estrategias locales de prevención (México Evalúa, 2017). Ello se debe en parte a la falta de conocimiento sobre las dinámicas locales que contribuyen a configurar situaciones de paz o violencia en los municipios. El espacio o lugar como unidad de análisis permiten identificar las características de los fenómenos delictivos y las condiciones que lo explican (Eck, 2005). En este sentido, la representación cartográfica es una herramienta útil para analizar la violencia y la paz en su relación con la estructura socioeconómica o características urbanísticas de un espacio determinado, que puede ser un municipio, ciudad, colonia. La visualización de hechos delictivos en mapas no es nueva, sin embargo, el desarrollo tecnológico ha permitido la visualización y análisis de diferentes variables al mismo tiempo, lo que facilita establecer la relación entre aspectos ligados a la violencia y la paz. Así, el mapeo de diferentes variables sociales, económicas y políticas se interconectan con dinámicas de violencia y paz y ello conduce a recomendaciones de políticas públicas para la prevención que se adapten a las condiciones específicas de cada uno los espacios. El Laboratorio está pensado para incorporar una gran cantidad de información sobre demografía, delitos, organismos civiles, condiciones medio ambientales, salud pública, etcétera. Al requerirse de un enfoque interdisciplinario, El Colegio de México invitó a participar al Instituto Nacional de Salud Pública (INSP) y al Centro de Investigación y de Estudios Avanzados (CINVESTAV) del Instituto Politécnico Nacional. El convenio se firmó en octubre de 2017.</p>
+	<p>También se seleccionaron dos municipios y una delegación de la capital para llevar a cabo el proyecto piloto. Ya se tienen acuerdos con Ciudad Nezahualcóyotl en el Estado de México y el municipio de Jiutepec en Morelos. Eso nos está permitiendo acceder a información oficial inédita de enorme detalle.</p>
+</div>
+<%= render 'principal/footer' %>

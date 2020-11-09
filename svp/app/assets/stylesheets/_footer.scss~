@@ -1,0 +1,20 @@
+#footer { background-color: #BCE2D3; color: #303635; font-family: "Roboto regular"; padding-top: 85px; padding-bottom: 20px;
+	> div { width: 85%; max-width: 1200px; margin: 0 auto;
+		> div:nth-child(1) { width: 80%; margin: 0 auto;
+			> div:nth-child(1) { padding-right: 25px;
+				img { width: 100%; max-width: 380px; height: auto; }
+			}
+			> div:nth-child(2) { padding-left: 25px;
+				img { width: 100%; max-width: 270px; height: auto; }
+			}
+		}
+		> div:nth-child(2) { margin: 20px auto; width: 20%; max-width: 150px;
+			> div:nth-child(1) { padding-right: 5px;
+				.net-footer { width: 80%; max-width: 35px; height: auto; max-height: 40px; }
+			}
+			> div:nth-child(2) { padding-left: 5px;
+				.net-footer { width: 80%; max-width: 33px; height: auto; max-height: 31px; }
+			}
+		}
+	}
+}

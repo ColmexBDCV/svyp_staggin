@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  titulo: MyText
+  indice: MyText
+  documento: 
+
+two:
+  titulo: MyText
+  indice: MyText
+  documento: 

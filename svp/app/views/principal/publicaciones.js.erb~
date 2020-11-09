@@ -1,0 +1,5 @@
+document.querySelector("#publicaciones").innerHTML = "<%= j render partial: 'publicaciones' %>";
+document.querySelector("#nxt-yr").innerHTML = "<%= params[:offset] && params[:offset].to_i - 1 >= 0 ? '< Anterior' : '' %>";
+document.querySelector("#nxt-yr").setAttribute("href","<%= publicaciones_path(offset: (params[:offset] ? params[:offset].to_i - 1 : 0)) %>");
+document.querySelector("#lst-yr").innerHTML = "<%= params[:offset] && params[:offset].to_i + 1 < @pags ? 'Siguiente >' : '' %>";
+document.querySelector("#lst-yr").setAttribute("href","<%= publicacioness_path(offset: (params[:offset] ? params[:offset].to_i + 1 : 1)) %>");

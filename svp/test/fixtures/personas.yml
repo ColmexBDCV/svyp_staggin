@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nombre: MyText
+  semblanza: MyText
+  foto: 
+  twitter: MyText
+  fb: MyText
+  indice: 1
+
+two:
+  nombre: MyText
+  semblanza: MyText
+  foto: 
+  twitter: MyText
+  fb: MyText
+  indice: 1

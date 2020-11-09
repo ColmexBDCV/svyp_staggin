@@ -1,0 +1,5 @@
+document.querySelector(".contenido .uk-grid").innerHTML = "<%= j render partial: 'multimedia' %>";
+document.querySelector("#nxt-yr").setAttribute("href","<%= multimedia_path(offset: (params[:offset] ? params[:offset] - 1 : 0)) %>");
+document.querySelector("#nxt-yr").innerHTML = "<%= params[:offset] && params[:offset] != "0" ? "< Siguiente" : "" %>";
+document.querySelector("#lst-yr").setAttribute("href","<%= multimedia_path(offset: (params[:offset] ? params[:offset].to_i + 1 : 1)) %>");
+document.querySelector("#lst-yr").innerHTML = "<%= !params[:offset] || (params[:offset].to_i + 1) * @limite < @total ? "Anterior >" : "" %>";

@@ -1,0 +1,31 @@
+<!-- Contenedor de imagen de fondo -->
+<div class="princ">
+</div>
+<!-- Contenedor del formulario de acceso -->
+<div class="form">
+	<!-- Contenedor de imagen y campos del formulario -->
+	<div class="uk-width-1-1 uk-text-center" style="padding-top: 10%;">
+		<!-- Logo COLMEX -->
+		<img data-src="<%= image_url("colmex.png") %>" data-width data-height uk-img class="img-login">
+		<!-- Formulario de acceso -->
+		<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+			<!-- Campo de token de validación -->
+			<%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+			<!-- Campo de texto de usuario -->
+			<div class="field">
+				<%= f.text_field :usuario, autocomplete: "off", autofocus: true, placeholder: "Usuario", class: "text-ip" %>
+			</div>
+			<!-- Campo de texto de contraseña -->
+			<div class="field">
+				<%= f.password_field :password, autocomplete: "off", placeholder: "Contraseña", class: "text-ip" %>
+			</div>
+			<!-- Botón de envío de formulario -->
+			<div class="actions">
+				<%= f.submit "Acceder", class: "sign-in" %>
+			</div>
+		<!-- Cierre de formulario -->
+		<% end %>
+	<!-- Cierre de contenedor de imagen y campos de formulario -->
+	</div>
+<!-- Cierre de contenedor de formulario de acceso -->
+</div>

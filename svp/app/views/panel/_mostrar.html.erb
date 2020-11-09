@@ -1,0 +1,38 @@
+<table id="index-panel" style="margin-top:35px;word-break:normal;">
+	<thead>
+	</thead>
+	<tbody>
+		<% @fields.each do |f| %>
+		<tr class="row-ind">
+			<td class="ind-cell marker"><%= f[1] %></td>
+			<td class="ind-cell left-align"><%= raw(@obj[f[0]]) %></td>
+		</tr>
+		<% end %>
+		<% @imgs.each do |f| %>
+		<tr class="row-ind">
+			<td class="ind-cell"><%= f[1] %></td>
+			<td class="ind-cell left-align">
+				<% if !@obj.public_send(f[0]).is_a?(Paperclip::Attachment) && @obj.public_send(f[0]).attached? %>
+					<% if !@obj.public_send(f[0]).content_type.include?("image") %>
+						<object type="application/pdf" data="<%= rails_blob_path(@obj.public_send(f[0])) %>"><embed src="<%= rails_blob_path(@obj.public_send(f[0])) %>" type="application/pdf"></object>
+					<% else %>
+						<%= image_tag @obj.public_send(f[0]) %>
+					<% end %>
+				<% elsif @obj.public_send(f[0]).is_a?(Paperclip::Attachment) && @obj.public_send(f[0]).present? %>
+					<% if !@obj.public_send(f[0]).content_type.include?("image") %>
+						<object type="application/pdf" data="<%= @obj.public_send(f[0]).url %>"><embed src="<%= @obj.public_send(f[0]).url %>" type="application/pdf"></object>
+					<% else %>
+						<% if !f[1].is_a?(Array) %>
+							<%= image_tag @obj.public_send(f[0]).url %>
+						<% else %>
+							<% Galeria.where("model = ? and m_id = ?", @model.to_s, @obj.id).each do |g| %>
+								<%= image_tag g.url %>
+							<% end %>
+						<% end %>
+					<% end %>
+				<% end %>
+			</td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
